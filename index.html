@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
+    
+    body {
+        background-color: rgb(255, 255, 255);
+        text-align: left;
+        font-family: "Arial Narrow", "serif";
+        font-style: italic;
+    }
+	canvas {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+</style>
+
+<html>
+
+<body onmousemove="Draw(event)">
+    sailor livingston cuellar<br><br>
+    <img src="mountain.png" width=250px alt="a moving mountain">
+    <p>
+    <a href="gallery.html">gallery</a></p>
+    <p>
+    <a href="videos.html">videos</a></p>
+    <p>
+    <a href="music.html">music</a></p>
+    
+
+
+    <canvas id="canvas"></canvas>
+	<script>
+		let canvas = document.getElementById("canvas");
+		let context = canvas.getContext("2d");
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+
+		function Draw(event) {
+			// Get the mouse position
+			let x = event.clientX;
+			let y = event.clientY;
+
+
+			// Draw a line at the mouse position with random thickness
+			context.beginPath();
+            context.lineWidth = Math.random() * 20;
+			context.moveTo(x, y);
+			context.lineTo(x + 1, y + 1);
+			context.stroke();
+		}
+	</script>
+</body>
+</html>
+
+
