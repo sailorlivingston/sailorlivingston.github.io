@@ -1,58 +1,106 @@
 <!DOCTYPE html>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
-    
+
     body {
         background-color: rgb(255, 255, 255);
         text-align: left;
         font-family: "Arial Narrow", "serif";
         font-style: italic;
     }
-	canvas {
-			position: absolute;
-			top: 0;
-			left: 0;
-			z-index: -1;
-		}
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+    .link {
+        position: absolute;
+        font-size: 20px;
+        font-family: 'Prata', serif;
+    }
+    img {
+        text-align: right;
+        position: absolute;
+        display: inline-block;
+    }
 </style>
 
 <html>
 
-<body onmousemove="Draw(event)">
-    sailor livingston cuellar<br><br>
-	lilysotsu@gmail.com <br><br>
-    <img src="mountain.png" width=250px alt="a moving mountain">
-    <p>
-    <a href="gallery.html">gallery</a></p>
-    <p>
-    <a href="videos.html">videos</a></p>
-    <p>
-    <a href="music.html">music</a></p>
-    
-
-
+<body>
+    Sailor Livingston Cuellar "Lily Sotsu"<br>
+   <div><img src="mountain.gif" alt="moving mountain" width=200px></div>
+    <div class="link" id="link1"><a href="#">Selected Works</a></div>
+    <div class="link" id="link2"><a href="#">Music</a></div>
+    <div class="link" id="link3"><a href="#">Gallery</a></div>
+    <div class="link" id="link4"><a href="#">Bounty</a></div>
     <canvas id="canvas"></canvas>
-	<script>
-		let canvas = document.getElementById("canvas");
-		let context = canvas.getContext("2d");
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
 
-		function Draw(event) {
-			// Get the mouse position
-			let x = event.clientX;
-			let y = event.clientY;
+    <script>
+        let canvas = document.getElementById("canvas");
+        let context = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
+        let links = document.querySelectorAll(".link");
+        let linkPositions = [];
+        for (let i = 0; i < links.length; i++) {
+            let pos = { x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight };
+            linkPositions.push(pos);
+            links[i].style.top = pos.y + "px";
+            links[i].style.left = pos.x + "px";
+        }
 
-			// Draw a line at the mouse position with random thickness
-			context.beginPath();
-            context.lineWidth = Math.random() * 20;
-			context.moveTo(x, y);
-			context.lineTo(x + 1, y + 1);
-			context.stroke();
-		}
-	</script>
+        let mouseX = 0;
+        let mouseY = 0;
+        let circleMode = Math.round(Math.random());
+
+        canvas.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+        });
+
+        function Draw() {
+            // Draw a circle at the mouse position or a line connecting the mouse position to the previous one
+            if (circleMode) {
+                let radius = Math.random() * 5 + 2;
+                context.beginPath();
+                context.arc(mouseX, mouseY, radius, 0, Math.PI * 2);
+                context.fillStyle = "black";
+                context.fill();
+            } else {
+                context.lineWidth = Math.random() * 2 + 1;
+                context.lineCap = "round";
+                context.beginPath();
+                context.moveTo(prevX, prevY);
+                context.lineTo(mouseX, mouseY);
+                context.stroke();
+            }
+            prevX = mouseX;
+            prevY = mouseY;
+
+            // Move the links around the page in curved lines
+            for (let i = 0; i < links.length; i++) {
+                let pos = linkPositions[i];
+                let time = Date.now() * (i + 1) / 5000;
+                let offsetX = Math.sin(time) * 50;
+                let offsetY = Math.cos(time) * 50;
+                pos.x += offsetX;
+                pos.y += offsetY;
+                links[i].style.top = pos.y
+                links[i].style.left = pos.x;
+            }
+
+            // Request animation frame to continuously draw
+            requestAnimationFrame(Draw);
+        }
+
+        let prevX = 0;
+        let prevY = 0;
+        Draw();
+    </script>
 </body>
-</html>
 
+</html>
 
