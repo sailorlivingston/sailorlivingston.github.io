@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
-
+   
     body {
         background-color: rgb(255, 255, 255);
         text-align: left;
@@ -26,6 +26,10 @@
         position: absolute;
         display: inline-block;
     }
+    a {
+        color: black;
+        font-style: italic;
+    }
 </style>
 
 <html>
@@ -36,14 +40,16 @@
     <div class="link" id="link1"><a href="#">Selected Works</a></div>
     <div class="link" id="link2"><a href="#">Music</a></div>
     <div class="link" id="link3"><a href="#">Gallery</a></div>
-    <div class="link" id="link4"><a href="#">Bounty</a></div>
     <canvas id="canvas"></canvas>
 
     <script>
+        let randomColor = Math.floor(Math.random()*16777215).toString(16);
+
         let canvas = document.getElementById("canvas");
         let context = canvas.getContext("2d");
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        let ctx = canvas.getContext('2d');
 
         let links = document.querySelectorAll(".link");
         let linkPositions = [];
@@ -69,15 +75,16 @@
                 let radius = Math.random() * 5 + 2;
                 context.beginPath();
                 context.arc(mouseX, mouseY, radius, 0, Math.PI * 2);
-                context.fillStyle = "black";
+                context.fillStyle = "#" + randomColor;
                 context.fill();
             } else {
-                context.lineWidth = Math.random() * 2 + 1;
+                context.lineWidth = Math.random() * 5 + 1;
                 context.lineCap = "round";
                 context.beginPath();
                 context.moveTo(prevX, prevY);
                 context.lineTo(mouseX, mouseY);
                 context.stroke();
+                context.strokeStyle = "#" + randomColor;
             }
             prevX = mouseX;
             prevY = mouseY;
@@ -101,6 +108,42 @@
         let prevX = 0;
         let prevY = 0;
         Draw();
+
+        // everything below is for generating the gradient
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+var time = new Date();
+var hour = time.getHours();
+var minute = time.getMinutes();
+var second = time.getSeconds();
+var totalSeconds = hour * 3600 + minute * 60 + second;
+var totalSecondsInDay = 24 * 3600;
+var percentOfDay = totalSeconds / totalSecondsInDay;
+
+var centerX = canvas.width / 2;
+var centerY = canvas.height / 2;
+var radius = canvas.width / 8;
+var angle = percentOfDay * 2 * Math.PI;
+var x = centerX + radius * Math.cos(angle);
+var y = centerY + radius * Math.sin(angle);
+
+var gradient = ctx.createRadialGradient(x, y, 11, x, y, radius);
+
+let randomColor = Math.floor(Math.random()*16777215).toString(16);
+
+
+if (Math.random() > 0.5) {
+        gradient.addColorStop(1, '#' + randomColor);
+				gradient.addColorStop(0, 'rgba(255, 0, 0, 0)')
+    } else {
+        gradient.addColorStop(0, '#' + randomColor);
+				gradient.addColorStop(1, 'rgba(255, 0, 0, 0)')
+    }
+
+ctx.fillStyle = gradient;
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+});
     </script>
 </body>
 
