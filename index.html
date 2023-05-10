@@ -1,161 +1,378 @@
 <!DOCTYPE html>
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
-   
-    body {
-        background-color: rgb(255, 255, 255);
-        text-align: left;
-        font-family: "Arial Narrow", "serif";
-        font-style: italic;
-        position: absolute;
-        display: inline-block;
-    }
-    canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-    }
-    .link {
-        position: absolute;
-        font-size: 20px;
-        font-family: 'Prata', serif;
-    }
-    img {
-        text-align: right;
-        position: absolute;
-        display: inline-block;
-    }
-    a {
-        color: black;
-        font-style: italic;
-        text-decoration: none;
-    }
+ @import url("https://fonts.googleapis.com/css2?family=Prata&display=swap");
+  
+  body {
+    text-align: center;
+    background-color: blue;
+    font-family: "Prata", serif;
+    font-style: italic;
+  }
+  
+  #musBtn {
+    background-color: white;
+    color: black;
+  }
+  
+  #header {
+    color: white;
+    font-size: 75px;
+  }
+  
+  #header2 {
+    color: white;
+    font-size: 28px;
+  }
+  
+  #buto {
+    text-align: center;
+    color: white;
+    font-size: 60px;
+    margin: 0;
+  	position: inline-block;
+  	top: 75%;
+  	-ms-transform: translateY(-75%);
+  	transform: translateY(-75%);
+  }
 
-    img.hashtag {
-        width: 100px;
-        position: absolute;
-        display: inline-block;
-        bottom: 100;
-        left: 0;
-    }
+  #speaker {
+    color: white;
+    font-size: 30px;
+  }
 </style>
 
 <html lang="en-US">
-
-<body>
-    Sailor Livingston Cuellar "Lily Sotsu"<br>
-   <div><img src="mountain.gif" alt="moving mountain" width=200px></div>
-   <div><img class="hashtag" src="transface.png" alt="hashtagofsailorsface"></div>
-    <!-- <div class="link" id="link1"><a href="#">Hi</a></div>
-    <div class="link" id="link2"><a href="#">Hello</a></div>
-    <div class="link" id="link3"><a href="#">Hiiiiii</a></div> -->
-    <canvas id="canvas"></canvas>
-
-    <script>
-        let randomColor = Math.floor(Math.random()*16777215).toString(16);
-
-        let canvas = document.getElementById("canvas");
-        let context = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        let ctx = canvas.getContext('2d');
-
-        let links = document.querySelectorAll(".link");
-        let linkPositions = [];
-        for (let i = 0; i < links.length; i++) {
-            let pos = { x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight };
-            linkPositions.push(pos);
-            links[i].style.top = pos.y + "px";
-            links[i].style.left = pos.x + "px";
-        }
-
-        let mouseX = 0;
-        let mouseY = 0;
-        let circleMode = Math.round(Math.random());
-
-        canvas.addEventListener('mousemove', (event) => {
-            mouseX = event.clientX;
-            mouseY = event.clientY;
-        });
-
-        function Draw() {
-            // Draw a circle at the mouse position or a line connecting the mouse position to the previous one
-            if (circleMode) {
-                let radius = Math.random() * 5 + 2;
-                context.beginPath();
-                context.arc(mouseX, mouseY, radius, 0, Math.PI * 2);
-                context.fillStyle = "#" + randomColor;
-                context.fill();
-            } else {
-                context.lineWidth = Math.random() * 5 + 1;
-                context.lineCap = "round";
-                context.beginPath();
-                context.moveTo(prevX, prevY);
-                context.lineTo(mouseX, mouseY);
-                context.stroke();
-                context.strokeStyle = "#" + randomColor;
-            }
-            prevX = mouseX;
-            prevY = mouseY;
-
-            // Move the links around the page in curved lines
-            for (let i = 0; i < links.length; i++) {
-                let pos = linkPositions[i];
-                let time = Date.now() * (i + 1) / 5000;
-                let offsetX = Math.sin(time) * 50;
-                let offsetY = Math.cos(time) * 50;
-                pos.x += offsetX;
-                pos.y += offsetY;
-                links[i].style.top = pos.y
-                links[i].style.left = pos.x;
-            }
-
-            // Request animation frame to continuously draw
-            requestAnimationFrame(Draw);
-        }
-
-        let prevX = 0;
-        let prevY = 0;
-        Draw();
-
-        // everything below is for generating the gradient
-
-        document.addEventListener("DOMContentLoaded", function() {
-
-var time = new Date();
-var hour = time.getHours();
-var minute = time.getMinutes();
-var second = time.getSeconds();
-var totalSeconds = hour * 3600 + minute * 60 + second;
-var totalSecondsInDay = 24 * 3600;
-var percentOfDay = totalSeconds / totalSecondsInDay;
-
-var centerX = canvas.width / 2;
-var centerY = canvas.height / 2;
-var radius = canvas.width / 8;
-var angle = percentOfDay * 2 * Math.PI;
-var x = centerX + radius * Math.cos(angle);
-var y = centerY + radius * Math.sin(angle);
-
-var gradient = ctx.createRadialGradient(x, y, 11, x, y, radius);
-
-let randomColor = Math.floor(Math.random()*16777215).toString(16);
-
-
-if (Math.random() > 0.5) {
-        gradient.addColorStop(1, '#' + randomColor);
-				gradient.addColorStop(0, 'rgba(255, 0, 0, 0)')
-    } else {
-        gradient.addColorStop(0, '#' + randomColor);
-				gradient.addColorStop(1, 'rgba(255, 0, 0, 0)')
-    }
-
-ctx.fillStyle = gradient;
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-});
-    </script>
-</body>
-
+	<h1 id="header"></h1>
+  <h3 id="header2"></h3>
+  <br><br><br>
+  <img id="image" width="400px" alt="gif depicting the weather">
+  <br><br><br>
+  <p id="speaker"></p>
+  <div id="buto">
+    " <input type="button" id="musBtn" value="hear today">"
+  </div>
 </html>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tonal/browser/tonal.min.js"></script>
+<script>
+  //global weather variables
+
+  let snow;
+  let rain;
+  let cloud;
+  let tempVal;
+
+  //weather function for determining text + gif and loading variables with weather data
+
+ async function weatherService () {
+   
+   //retreiving weather info + location info 
+  const gpsURL = 'https://location.services.mozilla.com/v1/geolocate?key=test'
+  const gpsReq = await window.fetch(gpsURL)
+  const gps = await gpsReq.json()
+  let gpsLat = gps.location.lat
+  let gpsLon = gps.location.lng
+  // let gpsLat = "59.605631178837406" 
+  // let gpsLon = "-151.41404784097617"
+  const url = `https://api.weatherbit.io/v2.0/current?units=I&lat=${gpsLat}&lon=${gpsLon}&key=5c3c4259df534414b6c2ee063f50cead&`
+  const req = await window.fetch(url)
+  const info = await req.json()
+  
+  //converting temp and description info to strings
+  const temp = JSON.stringify(info.data[0].temp)
+  const descriptionObj = info.data[0].weather.description
+  const description = JSON.stringify(descriptionObj)
+  
+  //updating sub-header with temp and description
+  const head2 = document.getElementById("header2")
+  head2.innerHTML = description + "<br>" + temp + "°"
+  console.log(info)
+   
+  //generate gif based off of cloud/rain conditions
+  const snowGifURL = 'https://www.animationsoftware7.com/img/agifs/snow02.gif'
+  const rainGifURL = 'https://media3.giphy.com/media/Wmp1EOzVybWd13s5DB/giphy.gif?cid=6c09b952edmxxjg0mppraizn3dk5wq07cnbpi22m7xbgehkt&ep=v1_stickers_related&rid=giphy.gif&ct=s'
+  const cloudyGifURL = 'https://i.gifer.com/3F3I.gif'
+  const sunnyGifURL = 'https://i.gifer.com/origin/52/529d0928c046f2483a26dec27594b979_w200.gif'//'https://media1.giphy.com/media/aL1WOMnoxfC8w/giphy.gif'
+   snow = info.data[0].snow
+  // snow = 1
+   rain = info.data[0].precip
+   cloud = info.data[0].clouds
+   tempVal = info.data[0].temp
+  const centerImg = document.getElementById("image")
+  
+  if (snow > 0.04) {
+    centerImg.src = snowGifURL;
+  } else if (rain > 0.1) {
+    centerImg.src = rainGifURL;
+ 	} else if (cloud > 55) {
+    centerImg.src = cloudyGifURL;
+  } else {
+    centerImg.src = sunnyGifURL
+  }
+   
+} 
+
+
+
+
+function greet () {
+  const hr = (new Date()).getHours();
+  const head = document.getElementById("header");
+  
+  let greeting = {}  
+  	if (hr < 12) {
+    greeting = "good morning";
+  } else if (hr < 17) {
+    greeting = "good afternoon";
+  } else {
+    greeting = "good evening";
+  }
+  head.innerHTML = greeting;
+}
+  
+/////////////////////////////////SOUND///////////////////////////////////
+  
+const synth = new Tone.Synth().toDestination();
+const playBTN = document.getElementById("musBtn");
+const speaker = document.getElementById("speaker");
+
+let scaleLead;
+let scaleChord;
+let scaleBass;
+let noteList;
+let scaleNote;
+
+let mixer;
+
+let osc1;
+let osc2;
+let syn1;
+let syn2;
+
+let lfo1;
+let lfo2;
+let lfo3;
+
+let loop1;
+ 
+
+function emptySpeaker () {
+  speaker.innerHTML = ""
+}
+
+function musicPlays () {
+  if (speaker.innerHTML === "") {
+    speaker.innerHTML = "♬"
+    osc1.start();
+    osc2.start();
+    lfo1.start();
+    lfo2.start();
+    lfo3.start();
+    loop1.start();
+    Tone.Transport.start();
+  } else  {
+    speaker.innerHTML = ""
+    osc1.stop();
+    osc2.stop();
+    lfo1.stop();
+    lfo2.stop();
+    lfo3.stop();
+    loop1.stop();
+    Tone.Transport.stop();
+  }
+  }
+
+
+
+//master
+
+function toneControl () {
+  Tone.Master.volume.value = -30;
+}
+
+function loopStep (time) {
+  let random = Math.floor(Math.random() * scaleLead.length);
+  let note = scaleLead[random];
+  let vel = Math.random();
+  syn1.triggerAttackRelease(note, "8n", time, vel);
+}
+
+function loopControl () {
+  loop1 = new Tone.Loop(loopStep, "4n");
+}
+
+//sound generators
+
+async function oscillo1 () {
+  await weatherService();
+  let osc1type;
+  if (snow > 0.04) {
+    osc1type = "sine";
+  } else if (rain > 0.1) {
+    osc1type = "triangle";
+ 	} else if (cloud > 55) {
+    osc1type = "sine";
+  } else {
+    osc1type = "triangle"
+  }
+  osc1 = new Tone.Oscillator({
+      type: osc1type,
+      frequency: `${scaleBass[0]}`,
+      volume: 0,
+    }
+  );
+  osc1.connect(mixer);
+
+}
+
+async function oscillo2 () {
+  await weatherService();
+  osc2 = new Tone.Oscillator({
+    type: "sine",
+    frequency: `${scaleBass[2]}`,
+    volume: 0,
+  }
+  );
+  if (snow > 0.04) {
+    osc2.connect(phaser);
+  } else {
+    osc2.connect(mixer);
+  };
+}
+
+async function synth1 () {
+  await weatherService();
+  syn1 = new Tone.Synth();
+  syn1.oscillator.type = 'square';
+  syn1.connect(mixer);
+}
+
+//lfo
+
+async function lowFreqOsc1 () {
+  await weatherService();
+  lfo1 = new Tone.LFO("0.05hz", 0, 5);
+  lfo2 = new Tone.LFO("0.08hz", 0, 5);
+  lfo3 = new Tone.LFO("0.01hz", 1, 5);
+  lfo1.connect(osc1.volume); 
+  lfo2.connect(osc2.volume);
+  lfo3.connect(syn1.volume);
+}
+ 
+//mixer
+async function mix () {
+  await weatherService();
+  mixer = new Tone.Gain();
+  mixer.connect(Tone.Master);
+//reverb
+let decayMix = cloud + 1 / 100;
+console.log(decayMix);
+  let reverb = new Tone.Reverb({
+      wet: 1,
+      decay: decayMix,
+     }
+  );
+  mixer.connect(reverb);
+  //chorus
+  let chorus = new Tone.Chorus({
+    frequency: 10,
+    depth: decayMix,
+  });
+  reverb.connect(chorus);
+  //delay for synth
+  let pinPonFeedback = rain + 5 / 100
+  let ppDelay = new Tone.PingPongDelay("4n",pinPonFeedback);
+  chorus.connect(ppDelay);
+  ppDelay.connect(Tone.Master);
+
+  //phaser for osc2
+  const phaser = new Tone.Phaser({
+    frequency:1500,
+    octaves: 5,
+    baseFrequency: 1000
+  })
+  phaser.connect(Tone.Master)
+}
+
+//scale set up
+
+async function scaleGen () {
+  await weatherService();
+  //rainy/snowy creates minor scale, cloudy/sunny creates major scale
+  let minMaj;
+  if (snow > 0.04) {
+    minMaj = "minor";
+  } else if (rain > 0.1) {
+    minMaj = "minor";
+ 	} else if (cloud > 55) {
+    minMaj = "major";
+  } else {
+    minMaj = "major";
+  }
+  
+  //note names
+  noteList = ["A","A#","B","B#","C","D","D#","E","E#","F","F#","G"];
+  if (tempVal < 0 ) {
+    scaleNote = noteList[0];
+  } else if (tempVal > -100 && tempVal < 9) {
+    scaleNote = noteList[1];
+ 	} else if (tempVal > 9 && tempVal < 19) {
+    scaleNote = noteList[2];
+  } else if (tempVal > 19 && tempVal < 29){
+    scaleNote = noteList[3];
+  } else if (tempVal > 29 && tempVal < 39) {
+    scaleNote = noteList[4];
+ 	} else if (tempVal > 39 && tempVal < 49) {
+    scaleNote = noteList[5];
+  } else if (tempVal > 49 && tempVal < 59){
+    scaleNote = noteList[6];
+  } else if (tempVal > 59 && tempVal < 69) {
+    scaleNote = noteList[7];
+ 	} else if (tempVal > 69 && tempVal < 79) {
+    scaleNote = noteList[8];
+  } else if (tempVal > 79 && tempVal < 89) {
+    scaleNote = noteList[9];
+  } else if (tempVal > 89 && tempVal < 99) {
+    scaleNote = noteList[10];
+  } else {
+    scaleNote = noteList[11];
+  }
+  scaleLead = Tonal.Scale.get(`${scaleNote}4 ${minMaj}`).notes;
+  scaleChord = Tonal.Scale.get(`${scaleNote}4 ${minMaj}`).notes;
+  scaleBass = Tonal.Scale.get(`${scaleNote}3 ${minMaj}`).notes;
+}
+
+//set up on load
+
+function init () {
+//front end 
+greet();
+weatherService();
+emptySpeaker();
+//mixer setup
+mix();
+//scale gen
+scaleGen();
+//load sounds
+oscillo1();
+oscillo2();
+synth1();
+lowFreqOsc1();
+//master
+toneControl();
+loopControl();
+}
+
+window.addEventListener('load', init)
+playBTN.addEventListener('click', musicPlays)
+playBTN.addEventListener("click", () => {
+  if (Tone.context.state !== "running") {
+    Tone.start();
+  }
+}
+)
+
+
+</script>
